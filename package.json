@@ -14,8 +14,11 @@
   "description": "",
   "dependencies": {
     "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
-    "mongoose": "^9.3.3"
+    "express-validator": "^7.3.2",
+    "mongoose": "^9.3.3",
+    "nodemailer": "^8.0.4"
   }
 }
