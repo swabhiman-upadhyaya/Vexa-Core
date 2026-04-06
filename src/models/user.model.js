@@ -11,7 +11,7 @@ const userSchema = mongoose.Schema(
     },
     email: {
       type: String,
-      lowerCase: true,
+      lowecase: true,
       unique: true,
       trim: true,
       required: true
@@ -32,13 +32,13 @@ const userSchema = mongoose.Schema(
 /* Saving hashed password into the databaase */
 /* here calling next() means saving the password to DB */
 async function hashingPassword(next) {
-  if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 10);w
+  if (!this.isModified("password")) return;
+  this.password = await bcrypt.hash(this.password, 10);
 }
 userSchema.pre("save", hashingPassword)
 
 /* Comparing password with the hashed password in the DB user will login */
-userSchema.methods.comparePassword = (candidatePassword) => {
+userSchema.methods.comparePassword = function (candidatePassword) {
   return bcrypt.compare (candidatePassword, this.password)
 }
 
