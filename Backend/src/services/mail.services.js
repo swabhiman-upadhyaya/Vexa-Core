@@ -28,5 +28,5 @@ export async function sendEmail(to, subject, html) {
   }
 
   const details = await transporter.sendMail(mailOptions)
-  // console.log("Email send: ", details)
+  console.log(`Email sent to: ${to}`)
 }

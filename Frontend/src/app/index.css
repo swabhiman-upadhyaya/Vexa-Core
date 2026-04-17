@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+
+@layer utilities {
+  .shadow-glow {
+    box-shadow: 0 0 8px #91C8E4;
+  }
+}
