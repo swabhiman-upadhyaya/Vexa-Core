@@ -9,8 +9,8 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = () => {
-    console.log("Register submitted:", { email, username, password });
+  const handleSubmit = (e) => {
+    e.preventDefault();
   };
 
   return (

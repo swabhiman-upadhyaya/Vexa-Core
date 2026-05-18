@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useAuth } from "../hook/useAuth";
 
 const inputCls =
   "w-full bg-[#111c27] border border-[#4682A9]/40 rounded-lg px-4 py-3 text-[14px] text-[#F6F4EB] placeholder-[#F6F4EB]/30 outline-none focus:border-[#749BC2] focus:ring-1 focus:ring-[#749BC2]/30 transition-all";
@@ -8,9 +9,30 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = () => {
-    console.log("Login submitted:", { email, password });
+  const user = useAuth(state => state.auth.user);
+  const loading = useAuth(state => state.auth.loading);
+
+  const { handleLogin } = useAuth();
+
+  const navigate = useNavigate();
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      email,
+      password,
+    }
+
+    await handleLogin(payload);
+    navigate("/");
+    
   };
+
+  if (!loading && user) {
+    return <Navigate to="/" replace />
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0d1520] px-4 py-10">
