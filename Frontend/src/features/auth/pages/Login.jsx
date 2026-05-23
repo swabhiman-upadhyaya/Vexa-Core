@@ -1,34 +1,38 @@
-import { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useAuth } from "../hook/useAuth";
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router'
+import { useAuth } from '../hook/useAuth'
+import { useSelector } from 'react-redux'
+import { Navigate } from 'react-router'
+
 
 const inputCls =
   "w-full bg-[#111c27] border border-[#4682A9]/40 rounded-lg px-4 py-3 text-[14px] text-[#F6F4EB] placeholder-[#F6F4EB]/30 outline-none focus:border-[#749BC2] focus:ring-1 focus:ring-[#749BC2]/30 transition-all";
 
 export const Login = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const user = useAuth(state => state.auth.user);
-  const loading = useAuth(state => state.auth.loading);
+  const user = useSelector(state => state.auth.user)
+  const loading = useSelector(state => state.auth.loading)
 
   const { handleLogin } = useAuth();
 
   const navigate = useNavigate();
 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const submitForm = async (event) => {
+    event.preventDefault()
 
     const payload = {
       email,
       password,
     }
 
-    await handleLogin(payload);
-    navigate("/");
-    
-  };
+    await handleLogin(payload)
+    navigate("/")
+
+  }
 
   if (!loading && user) {
     return <Navigate to="/" replace />
@@ -86,7 +90,7 @@ export const Login = () => {
 
         {/* Button */}
         <button
-          onClick={handleSubmit}
+          onClick={submitForm}
           className="w-full py-3 rounded-lg font-bold text-[15px] text-[#0d1520] cursor-pointer transition-all hover:brightness-110 active:scale-[0.99]"
           style={{
             background: "linear-gradient(180deg, #91C8E4 0%, #749BC2 100%)",

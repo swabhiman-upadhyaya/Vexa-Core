@@ -11,7 +11,7 @@ const httpServer = http.createServer(app);
 
 initSocket(httpServer);
 
-testAi();
+// testAi();
 
 connectDB()
   .catch((err) => {

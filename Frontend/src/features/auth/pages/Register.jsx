@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../hook/useAuth";
 
 const inputCls = "w-full bg-[#0a0f14] border border-[#4682A9]/30 rounded-[10px] px-4 py-3 text-[13.5px] text-[#F6F4EB] placeholder-[#F6F4EB]/20 outline-none focus:border-[#749BC2] focus:ring-2 focus:ring-[#749BC2]/10 transition-all";
+
 
 
 const Register = () => {
@@ -9,8 +11,22 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const { handleRegister } = useAuth();
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const payload = {
+      email,
+      username,
+      password
+    }
+
+    await handleRegister(payload)
+
+    navigate("/");
   };
 
   return (
@@ -34,9 +50,9 @@ const Register = () => {
 
         {/* Title */}
         <h1 className="text-[30px] font-bold text-[#91C8E4] leading-tight mb-1">
-          Create Your Account 
+          Create Your Account
         </h1>
-        
+
 
         {/* Fields */}
         <div className="mb-4">

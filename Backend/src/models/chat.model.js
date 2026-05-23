@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import userModel from "./user.model.js";
 
 const chatScehma = new mongoose.Schema(
   {
@@ -9,7 +10,7 @@ const chatScehma = new mongoose.Schema(
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: User,
+      ref: userModel,
       required: true
     }
   },
