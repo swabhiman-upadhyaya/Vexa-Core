@@ -2,44 +2,19 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useChat } from '../hooks/useChat'
 
+import AiMessage from '../components/AiMessage'
+import UserMessage from '../components/UserMessage'
+import "../styles/dashboard.css"
 
-const AiMessage = ({ text }) => (
-  <div
-    className="self-start max-w-[85%] sm:max-w-[68%] rounded-[3px_16px_16px_16px] p-[12px_15px] text-sm leading-relaxed"
-    style={{
-      background: 'linear-gradient(145deg, #1a2a3d 0%, #0f1c2d 100%)',
-      border: '1px solid rgba(70,130,169,0.32)',
-      color: 'rgba(246,244,235,0.82)',
-    }}
-  >
-    <div className="flex items-center gap-1.5 mb-1.5">
-      <span className="w-[5px] h-[5px] rounded-full bg-[#91C8E4] flex-shrink-0" />
-      <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-[#749BC2]">
-        Vexa-Core
-      </span>
-    </div>
-    {text}
-  </div>
-)
-
-const UserMessage = ({ text }) => (
-  <div
-    className="self-end max-w-[80%] sm:max-w-[62%] rounded-[16px_16px_3px_16px] px-4 py-[10px] text-sm font-bold text-[#0d1520]"
-    style={{
-      background: 'linear-gradient(180deg, #91C8E4 0%, #749BC2 100%)',
-      boxShadow: '0 2px 16px rgba(145,200,228,0.25), inset 0 1px 0 rgba(255,255,255,0.2)',
-    }}
-  >
-    {text}
-  </div>
-)
 
 const Dashboard = () => {
 
   const chatActions = useChat()
   const [chatInput, setChatInput] = useState('')
+
   const chats = useSelector((state) => state.chat.chats)
   const currentChatId = useSelector((state) => state.chat.currentChatId)
+  
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const messagesEndRef = useRef(null)               // FIX 1: was used but never declared
 
@@ -190,7 +165,7 @@ const Dashboard = () => {
             </button>
             <div className="flex flex-col gap-0.5">
               <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-[#749BC2]">
-                Active Session
+                Vexa-Core.. Ai
               </span>
               <span className="text-sm sm:text-base font-extrabold text-[#91C8E4] leading-none">
                 Ask me anything
@@ -204,7 +179,7 @@ const Dashboard = () => {
         </div>
 
         {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-5 flex flex-col gap-4">
+        <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-5 flex flex-col gap-4 hide-scrollbar">
           {chats[currentChatId]?.messages.map((msg) =>
             msg.role === 'user'
               ? <UserMessage key={msg.id} text={msg.content} />
@@ -248,6 +223,7 @@ const Dashboard = () => {
                 <path d="M2 8l12-6-6 12-2-4-4-2z" fill="currentColor" />
               </svg>
             </button>
+            
           </form>
         </div>
       </div>

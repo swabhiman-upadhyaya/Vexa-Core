@@ -18,11 +18,13 @@ export const useChat = () => {
         chatId: chat._id,
         title: chat.title,
       }))
+
     dispatch(addNewMessage({
       chatId: chatId || chat._id,
       content: message,
       role: "user",
     }))
+
     dispatch(addNewMessage({
       chatId: chatId || chat._id,
       content: aiMessage.content,
@@ -55,7 +57,8 @@ export const useChat = () => {
       const data = await getMessages(chatId)
       const { messages } = data
 
-      const formattedMessages = messages.map(msg => ({
+      const formattedMessages = messages.map((msg, idx) => ({
+        key: idx,
         content: msg.content,
         role: msg.role,
       }))
@@ -68,11 +71,16 @@ export const useChat = () => {
     dispatch(setCurrentChatId(chatId))
   }
 
+  async function handleDeleteChat() {
+    
+  }
+
   return {
     initializeSocketConnection,
     handleSendMessage,
     handleGetChats,
-    handleOpenChat
+    handleOpenChat,
+    handleDeleteChat
   }
 
 }
