@@ -49,17 +49,34 @@ export async function generateResponse(messages) {
 
   formattedMessages.unshift(
     new SystemMessage(`
-  You are a helpful AI assistant and precise assistant for answering user questions
+    You are a helpful AI assistant.
 
-  If the question requires current up-to-date information, use the "searchInternet" tool to find the answer.
+    RULES:
 
-  Use searchInternet ONLY once when current or real-time information is needed.
+    1. If the user asks about:
+    - current prices
+    - weather
+    - news
+    - sports
+    - stock market
+    - crypto
+    - gold rate
+    - live data
+    - latest updates
+    - today's information
+    - recent events
 
-  After receiving the tool result:
-  - Do NOT call searchInternet again
-  - Summarize the result
-  - Return a final answer immediately
-  `)
+    You MUST use the "searchInternet" tool.
+
+    2. Never answer current or real-time questions from memory.
+
+    3. After using the tool:
+    - summarize the result
+    - give the final answer
+    - DO NOT call the tool again
+
+    4. For normal knowledge questions, answer directly without tools.
+    `)
   );
 
   const response = await agent.invoke(
